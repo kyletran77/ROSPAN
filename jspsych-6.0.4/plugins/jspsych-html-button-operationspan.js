@@ -85,6 +85,7 @@ jsPsych.plugins["html-button-operationspan"] = (function() {
 
     // display stimulus
     var html = '<div id="jspsych-html-button-response-stimulus">'+trial.stimulus+'</div>';
+    var actualChoice;
 
     //display buttons
     var buttons = [];
@@ -119,6 +120,11 @@ jsPsych.plugins["html-button-operationspan"] = (function() {
     for (var i = 0; i < trial.choices.length; i++) {
       display_element.querySelector('#jspsych-html-button-response-button-' + i).addEventListener('click', function(e){
         var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+        if (choice == 0)
+        {actualChoice = "True"}
+        else {
+          actualChoice = "False";
+        }
         if ((trial.equation_accuracy) && (choice==0)){
           acc = 1
         } else if ((!trial.equation_accuracy) && (choice == 1)){
@@ -170,8 +176,9 @@ jsPsych.plugins["html-button-operationspan"] = (function() {
       // gather the data to store for the trial
       var trial_data = {
         "rt": response.rt,
-        "stimulus": trial.stimulus,
-        "accuracy": response.button
+        "stimuli": trial.stimulus.replace(/(<([^>]+)>)/gi, ""),
+        "accuracy": response.button,
+        "recall": actualChoice
       };
 
       // clear the display

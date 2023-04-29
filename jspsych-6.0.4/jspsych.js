@@ -1327,9 +1327,9 @@ jsPsych.data = (function() {
 
     var default_data = {
       'trial_type': trial.type,
-      'trial_index': progress.current_trial_global,
+      // 'trial_index': progress.current_trial_global,
       'time_elapsed': jsPsych.totalTime(),
-      'internal_node_id': jsPsych.currentTimelineNodeID()
+      // 'internal_node_id': jsPsych.currentTimelineNodeID()
     };
 
     var ext_data_object = Object.assign({}, data_object, trial.data, default_data, dataProperties);
